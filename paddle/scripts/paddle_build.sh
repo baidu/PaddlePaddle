@@ -1088,6 +1088,7 @@ function card_test() {
 }
 
 function parallel_test_base_gpu() {
+    export WITH_TESTING=ON;
     if [ ${WITH_TESTING:-ON} == "ON" ] ; then
     cat <<EOF
     ========================================
@@ -1865,7 +1866,7 @@ EOF
     fi
     startTime_s=`date +%s`
     set +e
-    cmake .. -DWITH_DISTRIBUTE=OFF -DON_INFER=ON -DCUDA_ARCH_NAME=${CUDA_ARCH_NAME:-Auto};build_error=$?
+    cmake .. -DWITH_DISTRIBUTE=OFF -DON_INFER=ON -DCUDA_ARCH_NAME=${CUDA_ARCH_NAME:-Auto} -DWITH_INFERENCE_API_TEST=${WITH_INFERENCE_API_TEST:-ON} -DWITH_TESTING=ON;build_error=$?
 
     # reset ccache zero stats for collect PR's actual hit rate
     ccache -z
@@ -2210,6 +2211,7 @@ function main() {
         #test_fluid_lib_train
         #go inference test
         test_go_inference_api
+	      parallel_test_base_gpu
         check_approvals_of_unittest 3 
         ;;
       test_train)
