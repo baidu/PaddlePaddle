@@ -26,5 +26,9 @@ class TestInstallCheck(unittest.TestCase):
         paddle.utils.run_check()
 
 
+def TestFunc():
+    return paddle.to_tensor(1).numpy()
+
+
 if __name__ == '__main__':
     unittest.main()
