@@ -69,7 +69,7 @@ def fill_(x, fill_value):
     if not (isinstance(fill_value, Variable)):
         fill_value = paddle.to_tensor(fill_value, dtype=x.dtype)
     assert (fill_value.size == 1), "var should be size 1"
-    return core.ops.fill_inplace(x, fill_value)
+    return core.ops.fill_inplace_(x, fill_value)
 
 
 setattr(core.VarBase, 'fill_', fill_)
@@ -104,7 +104,7 @@ def zero_(x):
 
     """
     fill_value = paddle.to_tensor(0, dtype=x.dtype)
-    return core.ops.fill_inplace(x, fill_value)
+    return core.ops.fill_inplace_(x, fill_value)
 
 
 setattr(core.VarBase, 'zero_', zero_)
