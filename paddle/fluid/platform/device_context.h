@@ -819,6 +819,13 @@ class DeviceContextPool {
     return *pool;
   }
 
+  static void Destroy() {
+    if (pool) {
+      delete pool;
+    }
+    pool = nullptr;
+  }
+
   static void SetPool(DeviceContextPool* dev_pool) { pool = dev_pool; }
 
   /*! \brief  Return handle of single device context. */

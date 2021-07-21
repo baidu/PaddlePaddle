@@ -94,6 +94,8 @@ class TestMomentumOp2(TestMomentumOp1):
         self.use_nesterov = True
 
 
+@unittest.skipIf(not paddle.is_compiled_with_npu(),
+                 "core is not compiled with NPU")
 class TestMomentumV2(unittest.TestCase):
     def test_momentum_dygraph(self):
         paddle.disable_static(place=fluid.NPUPlace(0))
@@ -138,6 +140,8 @@ class TestMomentumV2(unittest.TestCase):
         self.assertRaises(ValueError, paddle.optimizer.Momentum, momentum=None)
 
 
+@unittest.skipIf(not paddle.is_compiled_with_npu(),
+                 "core is not compiled with NPU")
 class TestMomentumOpWithDecay(OpTest):
     def set_npu(self):
         self.__class__.use_npu = True
@@ -194,6 +198,8 @@ class TestMomentumOpWithDecay(OpTest):
         self.check_output_with_place(core.NPUPlace(0), atol=3e-3)
 
 
+@unittest.skipIf(not paddle.is_compiled_with_npu(),
+                 "core is not compiled with NPU")
 class TestMomentumOpWithDecayFP16(TestMomentumOpWithDecay):
     def init_config(self):
         self.dtype = np.float16
@@ -203,11 +209,15 @@ class TestMomentumOpWithDecayFP16(TestMomentumOpWithDecay):
         self.check_output(atol=1e-3)
 
 
+@unittest.skipIf(not paddle.is_compiled_with_npu(),
+                 "core is not compiled with NPU")
 class TestMomentumOpWithDecay2(TestMomentumOpWithDecay):
     def init_config(self):
         self.use_nesterov = False
 
 
+@unittest.skipIf(not paddle.is_compiled_with_npu(),
+                 "core is not compiled with NPU")
 class TestMomentumOpWithDecayAPI(unittest.TestCase):
     def _test_momentum_dygraph_common(self, regularization):
         paddle.disable_static(fluid.NPUPlace(0))
@@ -254,6 +264,8 @@ class TestMomentumOpWithDecayAPI(unittest.TestCase):
                 exe.run(main, feed=feeder.feed(data), fetch_list=fetch_list)
 
 
+@unittest.skipIf(not paddle.is_compiled_with_npu(),
+                 "core is not compiled with NPU")
 class TestMomentumOpVsMomentumOpWithDecayAPI(unittest.TestCase):
     def __update_params(self, momentum, linear):
         for i in range(10):
@@ -303,6 +315,8 @@ class TestMomentumOpVsMomentumOpWithDecayAPI(unittest.TestCase):
         self.__test_vs(place=place)
 
 
+@unittest.skipIf(not paddle.is_compiled_with_npu(),
+                 "core is not compiled with NPU")
 class TestMomentumV2Group(TestMomentumV2):
     def test_momentum_dygraph(self):
         paddle.disable_static(place=fluid.NPUPlace(0))
